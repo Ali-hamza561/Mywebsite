@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 280px;
+            text-align: center;
+            box-shadow: 0 8px 20px #3335;
+        }
+
+        h1 {
+            color: #5945b5;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #6655cc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        a {
+            color: #6655cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Welcome Back!</h1>
+        <p>Login to your account</p>
+
+        <form onsubmit="if(localStorage.getItem('signedUp')!=='yes'){alert('Please sign up first!');return false;}" action="Game.html">
+            <input type="text" placeholder="Username" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+
+        <p>New here?</p>
+        <a href="signup.html">Create an Account</a>
+    </div>
+</body>
+</html>

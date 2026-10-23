@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            color: #222;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px #0002;
+        }
+
+        button {
+            background: #11998e;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            margin: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #087f75;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>🎮 My Dashboard</h1>
+        <p>Welcome to your gaming world!</p>
+
+        <div class="card">
+            <h2>👤 Player Profile</h2>
+            <p id="username">Player</p>
+        </div>
+
+        <div class="card">
+            <h2>🎮 Play Games</h2>
+            <p>Ready for some fun?</p>
+            <button onclick="location.href='game1.html'">
+                Play Now
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>🏠 Game Page</h2>
+            <button onclick="location.href='game.html'">
+                Go to Game Page
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>🚪 Account</h2>
+            <button onclick="logout()">Logout</button>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById("username").textContent =
+            localStorage.getItem("username") || "Player";
+
+        function logout() {
+            localStorage.removeItem("signedUp");
+            location.href = "login.html";
+        }
+    </script>
+</body>
+</html>

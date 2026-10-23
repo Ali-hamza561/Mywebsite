@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ali Hamza's Website</title>
+</head>
+<body style="font-family: Arial; text-align: center; padding: 40px;">
+    <h1>Welcome to My Website!</h1>
+    <p>Designed by Ali Hamza</p>
+    <a href="signup.html">Sign Up</a>
+    <br><br>
+    <a href="login.html">Login</a>
+    <br><br>
+    <a href="game.html">Game Page</a>
+</body>
+  <script>
+if (localStorage.getItem('signedUp') !== 'yes') {
+  window.location.href = 'Signup.html';
+} else {
+  window.location.href = 'Login.html';
+}
+  </script>
+</html>
