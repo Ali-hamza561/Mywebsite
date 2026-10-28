@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 340px;
+            text-align: center;
+            box-shadow: 0 8px 20px #3335;
+        }
+
+        h1 { color: #5945b5; }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #6655cc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .note {
+            background: #f0edff;
+            color: #5945b5;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        a { color: #6655cc; }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>Join Us!</h1>
+        <p>Create your account</p>
+
+        <p class="note">
+            📢 Your First Name will be your Username for login.
+        </p>
+
+        <form id="signupForm">
+            <input type="text" id="firstName"
+                   placeholder="First Name" required>
+
+            <input type="text" id="lastName"
+                   placeholder="Last Name" required>
+
+            <input type="email" id="email"
+                   placeholder="Email Address" required>
+
+            <input type="password" id="password"
+       placeholder="Password (minimum 8 characters)"
+       minlength="8" required>
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <p>Already a member?</p>
+        <a href="login.html">Login Here</a>
+    </div>
+
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const firstName =
+                document.getElementById("firstName").value.trim();
+
+            const lastName =
+                document.getElementById("lastName").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+            localStorage.setItem("username", firstName);
+            localStorage.setItem("lastName", lastName);
+            localStorage.setItem("email", email);
+            localStorage.setItem("password", password);
+            localStorage.setItem("signedUp", "yes");
+
+            localStorage.removeItem("loggedIn");
+
+            window.location.href = "login.html";
+        });
+    </script>
+</body>
+</html>

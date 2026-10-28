@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ali Hamza's Website</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border: 3px solid #075e54;
+            border-radius: 22px;
+            padding: 35px 25px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 12px 30px #003b3555;
+        }
+
+        h1 {
+            color: #075e54;
+            font-size: 30px;
+        }
+
+        p {
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .line {
+            border: none;
+            border-top: 2px solid #38b89a;
+            margin: 20px 0;
+        }
+
+        .btn, button {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            background: #087f70;
+            color: white;
+            padding: 13px;
+            margin-top: 14px;
+            border: 2px solid #075e54;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover, button:hover {
+            background: #075e54;
+        }
+
+        .footer {
+            color: #777;
+            font-size: 12px;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎮 Welcome to My Website!</h1>
+
+        <hr class="line">
+
+        <p>
+            Welcome to my gaming website!
+            Create an account, log in, and enjoy playing games.
+        </p>
+
+        <a class="btn" href="signup.html">📝 Sign Up</a>
+
+        <a class="btn" href="login.html">🔐 Login</a>
+
+        <a class="btn" href="game.html">🎮 Game Page</a>
+
+        <button type="button" onclick="logout()">🚪 Log Out</button>
+
+        <p style="color: #087f70; font-weight: bold;">
+            Designed by Ali Hamza
+        </p>
+
+        <p class="footer">Keep learning. Keep creating.</p>
+    </div>
+
+    <script>
+        function logout() {
+            localStorage.removeItem("loggedIn");
+            localStorage.removeItem("signedUp");
+            localStorage.removeItem("username");
+            localStorage.removeItem("password");
+
+            alert("Logged out! Please sign up again.");
+        }
+    </script>
+</body>
+</html>

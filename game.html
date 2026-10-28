@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Home Page</title>
+
+    <style>
+        body {
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background: white;
+            border: 3px solid #075e54;
+            border-radius: 22px;
+            padding: 35px 25px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            box-shadow: 0 12px 30px #003b3555;
+            box-sizing: border-box;
+        }
+
+        h1 { color: #075e54; font-size: 30px; }
+        h2 { color: #075e54; font-size: 21px; }
+
+        .line {
+            border: none;
+            border-top: 2px solid #38b89a;
+            margin: 20px 0;
+        }
+
+        .welcome {
+            color: #444;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .quote {
+            color: #087f70;
+            font-style: italic;
+            font-size: 15px;
+            border-left: 4px solid #11998e;
+            padding: 10px;
+            background: #e9faf5;
+            border-radius: 5px;
+        }
+
+        .btn {
+            display: block;
+            text-decoration: none;
+            background: #087f70;
+            color: white;
+            padding: 13px;
+            margin-top: 14px;
+            border: 2px solid #075e54;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #075e54;
+        }
+
+        .footer {
+            color: #777;
+            font-size: 12px;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome Home!</h1>
+
+        <hr class="line">
+
+        <p class="welcome">
+            Thank you for visiting this website.
+        </p>
+
+        <a class="btn" href="game1.html">🎮 Play Games</a>
+
+        <p style="color: #2d14db; font-weight: bold;">
+            Designed by Ali Hamza
+        </p>
+
+        <p class="footer">Keep learning. Keep creating.</p>
+    </div>
+</body>
+  <body>
+
+<script>
+if (
+    localStorage.getItem("signedUp") !== "yes" ||
+    localStorage.getItem("loggedIn") !== "yes"
+) {
+    window.location.href = "login.html";
+}
+</script>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Zone</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    color: #18302d;
+    background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+
+.container {
+    max-width: 760px;
+    margin: auto;
+    padding: 24px;
+    background: white;
+    border: 3px solid #075e54;
+    border-radius: 22px;
+    text-align: center;
+    box-shadow: 0 12px 30px #003b3555;
+}
+
+h1, h2 {
+    color: #075e54;
+}
+
+button, .btn {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+    background: #087f70;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px;
+}
+
+button:hover, .btn:hover {
+    background: #075e54;
+}
+
+.game-menu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 20px 0;
+}
+
+.game {
+    display: none;
+    padding: 20px 5px;
+    border-top: 2px solid #d6f3e9;
+}
+
+.game.active {
+    display: block;
+}
+
+.status {
+    min-height: 25px;
+    color: #075e54;
+    font-weight: bold;
+}
+
+.number-input {
+    width: 110px;
+    padding: 12px;
+    border: 2px solid #b9d8d0;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.tictactoe {
+    display: grid;
+    grid-template-columns: repeat(3, 75px);
+    gap: 7px;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.cell {
+    width: 75px;
+    height: 75px;
+    font-size: 30px;
+    background: #e9faf5;
+    color: #075e54;
+    border: 2px solid #b8e5d8;
+}
+
+canvas {
+    display: block;
+    width: min(100%, 320px);
+    height: auto;
+    margin: 15px auto;
+    background: #102b2a;
+    border: 4px solid #075e54;
+    border-radius: 10px;
+    touch-action: none;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(3, 55px);
+    justify-content: center;
+    gap: 5px;
+}
+
+.controls button {
+    margin: 0;
+    padding: 12px 5px;
+}
+
+.empty {
+    visibility: hidden;
+}
+
+.footer {
+    margin-top: 25px;
+    color: #71807c;
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+<main class="container">
+
+<h1>🎮 Game Zone</h1>
+<p>Choose a game and have fun!</p>
+
+<nav class="game-menu">
+    <button type="button" data-game="guess">🔢 Number Guess</button>
+    <button type="button" data-game="tic">⭕ Tic-Tac-Toe</button>
+    <button type="button" data-game="snake">🐍 Snake</button>
+</nav>
+
+<!-- NUMBER GUESSING GAME -->
+<section class="game active" id="guess">
+    <h2>Number Guessing Game</h2>
+    <p>Guess a number between 1 and 20.</p>
+
+    <form id="guess-form">
+        <input class="number-input" id="guess-input"
+        type="number" min="1" max="20" required>
+        <button type="submit">Guess</button>
+    </form>
+
+    <p class="status" id="guess-status">You have 5 tries!</p>
+    <p>Tries left: <strong id="tries">5</strong></p>
+    <button type="button" id="guess-reset">Play Again</button>
+</section>
+
+<!-- TIC TAC TOE -->
+<section class="game" id="tic">
+    <h2>Tic-Tac-Toe</h2>
+    <p>Play with a friend.</p>
+
+    <p class="status" id="tic-status">X's turn</p>
+
+    <div class="tictactoe">
+        <button type="button" class="cell" data-cell="0"></button>
+        <button type="button" class="cell" data-cell="1"></button>
+        <button type="button" class="cell" data-cell="2"></button>
+        <button type="button" class="cell" data-cell="3"></button>
+        <button type="button" class="cell" data-cell="4"></button>
+        <button type="button" class="cell" data-cell="5"></button>
+        <button type="button" class="cell" data-cell="6"></button>
+        <button type="button" class="cell" data-cell="7"></button>
+        <button type="button" class="cell" data-cell="8"></button>
+    </div>
+
+    <button type="button" id="tic-reset">Restart Game</button>
+</section>
+
+<!-- SNAKE GAME -->
+<section class="game" id="snake">
+    <h2>Snake Game</h2>
+    <p>Eat the yellow food and avoid crashing!</p>
+
+    <p class="status">Score: <span id="snake-score">0</span></p>
+
+    <canvas id="snake-canvas" width="320" height="320"></canvas>
+
+    <div class="controls">
+        <span class="empty"></span>
+        <button type="button" data-dir="up">⬆️</button>
+        <span class="empty"></span>
+
+        <button type="button" data-dir="left">⬅️</button>
+        <button type="button" data-dir="down">⬇️</button>
+        <button type="button" data-dir="right">➡️</button>
+    </div>
+
+    <p class="status" id="snake-status">Press Start to play!</p>
+    <button type="button" id="snake-start">Start / Restart</button>
+</section>
+
+<button type="button"
+        onclick="window.location.href='index.html'">
+    🚪 Exit
+</button>
+
+<p class="footer">Designed by Ali Hamza</p>
+
+</main>
+
+<script>
+// @ts-nocheck
+
+// SWITCH GAMES
+document.querySelectorAll("[data-game]").forEach(button => {
+    button.addEventListener("click", () => {
+        document.querySelectorAll(".game").forEach(section => {
+            section.classList.remove("active");
+        });
+
+        document.getElementById(button.dataset.game)
+            .classList.add("active");
+    });
+});
+
+// NUMBER GUESSING GAME
+let secretNumber;
+let triesLeft;
+let guessFinished = false;
+
+const guessStatus = document.getElementById("guess-status");
+const guessInput = document.getElementById("guess-input");
+
+function resetGuess() {
+    secretNumber = Math.floor(Math.random() * 20) + 1;
+    triesLeft = 5;
+    guessFinished = false;
+
+    document.getElementById("tries").textContent = triesLeft;
+    guessInput.value = "";
+    guessStatus.textContent = "You have 5 tries!";
+    guessInput.disabled = false;
+}
+
+document.getElementById("guess-form").addEventListener("submit", event => {
+    event.preventDefault();
+
+    if (guessFinished) return;
+
+    const guess = Number(guessInput.value);
+
+    if (!Number.isInteger(guess) || guess < 1 || guess > 20) {
+        guessStatus.textContent = "Enter a number from 1 to 20.";
+        return;
+    }
+
+    triesLeft--;
+    document.getElementById("tries").textContent = triesLeft;
+
+    if (guess === secretNumber) {
+        guessStatus.textContent = "🎉 Correct! You won!";
+        guessFinished = true;
+    } else if (triesLeft === 0) {
+        guessStatus.textContent =
+            "Game over! The number was " + secretNumber;
+        guessFinished = true;
+    } else {
+        guessStatus.textContent = guess < secretNumber
+            ? "Too low! Try higher."
+            : "Too high! Try lower.";
+    }
+
+    if (guessFinished) {
+        guessInput.disabled = true;
+    }
+
+    guessInput.value = "";
+});
+
+document.getElementById("guess-reset")
+    .addEventListener("click", resetGuess);
+
+resetGuess();
+
+// TIC-TAC-TOE
+const cells = Array.from(document.querySelectorAll("[data-cell]"));
+
+const winningLines = [
+    [0,1,2], [3,4,5], [6,7,8],
+    [0,3,6], [1,4,7], [2,5,8],
+    [0,4,8], [2,4,6]
+];
+
+let board;
+let currentPlayer;
+let ticFinished;
+
+function resetTic() {
+    board = Array(9).fill("");
+    currentPlayer = "X";
+    ticFinished = false;
+
+    cells.forEach(cell => {
+        cell.textContent = "";
+        cell.disabled = false;
+    });
+
+    document.getElementById("tic-status").textContent = "X's turn";
+}
+
+cells.forEach(cell => {
+    cell.addEventListener("click", () => {
+        const index = Number(cell.dataset.cell);
+
+        if (ticFinished || board[index]) return;
+
+        board[index] = currentPlayer;
+        cell.textContent = currentPlayer;
+
+        const won = winningLines.some(line =>
+            line.every(i => board[i] === currentPlayer)
+        );
+
+        if (won) {
+            document.getElementById("tic-status").textContent =
+                currentPlayer + " wins! 🎉";
+
+            ticFinished = true;
+            cells.forEach(c => c.disabled = true);
+
+        } else if (board.every(Boolean)) {
+            document.getElementById("tic-status").textContent =
+                "It's a draw!";
+
+            ticFinished = true;
+
+        } else {
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+
+            document.getElementById("tic-status").textContent =
+                currentPlayer + "'s turn";
+        }
+    });
+});
+
+document.getElementById("tic-reset")
+    .addEventListener("click", resetTic);
+
+resetTic();
+
+// SNAKE GAME
+const canvas = document.getElementById("snake-canvas");
+const ctx = canvas.getContext("2d");
+
+const tile = 16;
+const tiles = canvas.width / tile;
+
+let snake;
+let food;
+let direction;
+let nextDirection;
+let snakeScore = 0;
+let snakeTimer = null;
+let snakeRunning = false;
+
+function randomFood() {
+    let point;
+
+    do {
+        point = {
+            x: Math.floor(Math.random() * tiles),
+            y: Math.floor(Math.random() * tiles)
+        };
+    } while (snake.some(part =>
+        part.x === point.x && part.y === point.y
+    ));
+
+    return point;
+}
+
+function drawSnake() {
+    ctx.fillStyle = "#102b2a";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#ffcf5c";
+    ctx.fillRect(
+        food.x * tile + 2,
+        food.y * tile + 2,
+        tile - 4,
+        tile - 4
+    );
+
+    snake.forEach((part, i) => {
+        ctx.fillStyle = i === 0 ? "#38ef7d" : "#11998e";
+
+        ctx.fillRect(
+            part.x * tile + 1,
+            part.y * tile + 1,
+            tile - 2,
+            tile - 2
+        );
+    });
+}
+
+function stopSnake(message) {
+    snakeRunning = false;
+    clearInterval(snakeTimer);
+
+    document.getElementById("snake-status").textContent = message;
+}
+
+function snakeStep() {
+    direction = nextDirection;
+
+    const head = {
+        x: snake[0].x + direction.x,
+        y: snake[0].y + direction.y
+    };
+
+    const ate = head.x === food.x && head.y === food.y;
+    const body = ate ? snake : snake.slice(0, -1);
+
+    if (
+        head.x < 0 || head.y < 0 ||
+        head.x >= tiles || head.y >= tiles ||
+        body.some(part => part.x === head.x && part.y === head.y)
+    ) {
+        stopSnake("Game over! Score: " + snakeScore);
+        return;
+    }
+
+    snake.unshift(head);
+
+    if (ate) {
+        snakeScore++;
+
+        document.getElementById("snake-score").textContent = snakeScore;
+
+        if (snake.length === tiles * tiles) {
+            drawSnake();
+            stopSnake("Amazing! You filled the board!");
+            return;
+        }
+
+        food = randomFood();
+    } else {
+        snake.pop();
+    }
+
+    drawSnake();
+}
+
+function setDirection(name) {
+    const directions = {
+        up: { x: 0, y: -1 },
+        down: { x: 0, y: 1 },
+        left: { x: -1, y: 0 },
+        right: { x: 1, y: 0 }
+    };
+
+    const chosen = directions[name];
+
+    if (!chosen) return;
+
+    if (
+        chosen.x === -direction.x &&
+        chosen.y === -direction.y
+    ) return;
+
+    nextDirection = chosen;
+}
+
+function startSnake() {
+    clearInterval(snakeTimer);
+
+    snake = [
+        { x: 10, y: 10 },
+        { x: 9, y: 10 },
+        { x: 8, y: 10 }
+    ];
+
+    direction = { x: 1, y: 0 };
+    nextDirection = { x: 1, y: 0 };
+    snakeScore = 0;
+    snakeRunning = true;
+    food = randomFood();
+
+    document.getElementById("snake-score").textContent = "0";
+    document.getElementById("snake-status").textContent = "Playing!";
+
+    drawSnake();
+
+    snakeTimer = setInterval(() => {
+        if (snakeRunning) snakeStep();
+    }, 140);
+}
+
+document.querySelectorAll("[data-dir]").forEach(button => {
+    button.addEventListener("click", () => {
+        setDirection(button.dataset.dir);
+    });
+});
+
+document.addEventListener("keydown", event => {
+    const keys = {
+        ArrowUp: "up",
+        ArrowDown: "down",
+        ArrowLeft: "left",
+        ArrowRight: "right"
+    };
+
+    if (
+        keys[event.key] &&
+        document.getElementById("snake").classList.contains("active")
+    ) {
+        event.preventDefault();
+        setDirection(keys[event.key]);
+    }
+});
+
+document.getElementById("snake-start")
+    .addEventListener("click", startSnake);
+
+snake = [
+    { x: 10, y: 10 },
+    { x: 9, y: 10 },
+    { x: 8, y: 10 }
+];
+
+direction = { x: 1, y: 0 };
+food = { x: 15, y: 15 };
+
+drawSnake();
+</script>
+
+</body>
+</html>

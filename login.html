@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+        .note { color: #555; font-size: 14px; }
+        #errorMessage { color: red; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Login</h2>
+        <p class="note">📢 Your First Name is your Username.</p>
+
+        <form id="loginForm">
+            <input type="text" id="loginUsername"
+                   placeholder="First Name (Username)" required>
+
+            <input type="password" id="loginPassword"
+                   placeholder="Password" required>
+
+            <p id="errorMessage"></p>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const firstName = document.getElementById("loginUsername").value.trim();
+            const password = document.getElementById("loginPassword").value;
+
+            if (
+                localStorage.getItem("signedUp") === "yes" &&
+                firstName === localStorage.getItem("username") &&
+                password === localStorage.getItem("password")
+            ) {
+                localStorage.setItem("loggedIn", "yes");
+                alert("Login successful!");
+                window.location.href = "game.html";
+            } else {
+                document.getElementById("errorMessage").textContent =
+                    "Wrong first name or password!";
+            }
+        });
+    </script>
+</body>
+</html>
